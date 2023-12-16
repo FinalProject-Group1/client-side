@@ -1,0 +1,17 @@
+import PropTypes from 'prop-types';
+const SubmitButton = ({ text }) => {
+	return (
+		<button
+			type="submit"
+			className="py-2 w-full bg-gradient-to-r from-gray-600 to-green-primary rounded-lg text-lg font-bold text-slate-100"
+		>
+			{text}
+		</button>
+	);
+};
+
+export default SubmitButton;
+
+SubmitButton.propTypes = {
+	text: PropTypes.string,
+};

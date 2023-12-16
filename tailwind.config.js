@@ -7,6 +7,7 @@ export default {
 			colors: {
 				green: {
 					primary: '#3CB87E',
+					secondary: '#44d693',
 				},
 				yellow: {
 					primary: '#FBBF28',
