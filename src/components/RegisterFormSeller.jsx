@@ -10,10 +10,10 @@ const RegisterFormSeller = () => {
 				className="w-1/2 h-1/2 mix-blend-multiply	"
 			/>
 			<label className="font-bold">or</label>
-			<div className="mt-8 max-w-max h-full">
+			<div className="mt-8 max-w-max">
 				<SubmitButton text="Daftar Lewat WhatsApp" />
 			</div>
-			<label className="text-sm">
+			<label className="text-sm my-6">
 				Anda punya akun?{' '}
 				<span className=" text-green-primary font-bold hover:underline cursor-pointer">
 					Masuk Sekarang

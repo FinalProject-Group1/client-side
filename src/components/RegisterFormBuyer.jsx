@@ -22,10 +22,10 @@ const RegisterFormBuyer = () => {
 				label="Kata Sandi"
 				placeholder="kata sandi"
 			/>
-			<div className="mt-8 w-full h-full">
+			<div className="mt-8 w-full">
 				<SubmitButton text="Daftar" />
 			</div>
-			<label className="text-sm">
+			<label className="text-sm my-6">
 				Anda punya akun?{' '}
 				<span className=" text-green-primary font-bold hover:underline cursor-pointer">
 					Masuk Sekarang
