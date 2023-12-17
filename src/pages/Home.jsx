@@ -1,5 +1,5 @@
-import ProductCard from '../components/ProductCard';
 import SideBar from '../components/SideBar';
+import ListSellerProducts from './ListSellerProducts';
 
 const Home = () => {
 	return (
@@ -7,7 +7,7 @@ const Home = () => {
 			<div className="w-1/4">
 				<SideBar />
 			</div>
-			<div className="w-full h-full grid grid-cols-5 gap-20 p-10 justify-start items-start flex-wrap">
+			{/* <div className="w-full h-full grid grid-cols-5 gap-20 p-10 justify-start items-start flex-wrap">
 				<ProductCard />
 				<ProductCard />
 				<ProductCard />
@@ -17,7 +17,8 @@ const Home = () => {
 				<ProductCard />
 				<ProductCard />
 				<ProductCard />
-			</div>
+			</div> */}
+			<ListSellerProducts />
 		</div>
 	);
 };
