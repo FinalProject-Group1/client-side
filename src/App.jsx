@@ -1,13 +1,9 @@
-import "./App.css";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Shipment from "./pages/Shipment";
-import ShopSeller from "./pages/ShopSeller";
-import Dashboard from "./pages/Dashboard";
+import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
 function App() {
-  return <Dashboard />;
+	return <RouterProvider router={router} />;
 }
 
 export default App;
