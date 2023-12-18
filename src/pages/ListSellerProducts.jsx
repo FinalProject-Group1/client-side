@@ -24,13 +24,13 @@ const ListSellerProducts = () => {
 					<p className="font-medium text-red-primary">Rp 17.000</p>
 				</div>
 			</div>
-			<div className="w-full h-20">
+			<div className="w-full h-24">
 				<SellerProductCard />
 			</div>
-			<div className="w-full h-20">
+			<div className="w-full h-24">
 				<SellerProductCard />
 			</div>
-			<div className="w-full h-20">
+			<div className="w-full h-24">
 				<SellerProductCard />
 			</div>
 		</div>
