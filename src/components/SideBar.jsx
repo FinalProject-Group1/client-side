@@ -21,11 +21,7 @@ const SideBar = () => {
 					{/* Sidebar content here */}
 					<li>
 						<a className="text-md font-bold flex flex-row gap-4 text-slate-50">
-							<img
-								src="/vegetables.jpg"
-								alt=""
-								className="w-1/4 mix-blend-multiply"
-							/>
+							<img src="/vegetables.jpg" alt="" className="w-1/4" />
 							Sayuran
 						</a>
 					</li>
