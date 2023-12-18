@@ -10,8 +10,8 @@ function App() {
 		<div className="w-full h-screen">
 			{/* <Login /> */}
 			{/* <Register /> */}
-			{/* <Home /> */}
-			<Shipment />
+			<Home />
+			{/* <Shipment /> */}
 			{/* <ShopSeller /> */}
 		</div>
 	);
