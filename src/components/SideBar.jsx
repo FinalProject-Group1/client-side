@@ -1,4 +1,6 @@
-const SideBar = () => {
+import PropTypes from 'prop-types';
+
+const SideBar = ({ setCategory }) => {
 	return (
 		<div className="drawer lg:drawer-open bg-teal-500">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -19,16 +21,28 @@ const SideBar = () => {
 				></label>
 				<ul className="menu p-4 w-80 min-h-full bg-green-primary text-base-content">
 					{/* Sidebar content here */}
-					<li>
+					<li onClick={() => setCategory('sayuran')}>
 						<a className="text-md font-bold flex flex-row gap-4 text-slate-50">
 							<img src="/vegetables.jpg" alt="" className="w-1/4" />
 							Sayuran
 						</a>
 					</li>
-					<li>
+					<li onClick={() => setCategory('buah')}>
 						<a className="text-md font-bold flex flex-row gap-4 text-slate-50">
 							<img src="/fruits.jpg" alt="" className="w-1/4 h-full" />
 							Buah - Buahan
+						</a>
+					</li>
+					<li onClick={() => setCategory('sembako')}>
+						<a className="text-md font-bold flex flex-row gap-4 text-slate-50">
+							<img src="/fruits.jpg" alt="" className="w-1/4 h-full" />
+							Sembako
+						</a>
+					</li>
+					<li onClick={() => setCategory('daging')}>
+						<a className="text-md font-bold flex flex-row gap-4 text-slate-50">
+							<img src="/fruits.jpg" alt="" className="w-1/4 h-full" />
+							Daging
 						</a>
 					</li>
 				</ul>
@@ -38,3 +52,7 @@ const SideBar = () => {
 };
 
 export default SideBar;
+
+SideBar.propTypes = {
+	setCategory: PropTypes.func,
+};
