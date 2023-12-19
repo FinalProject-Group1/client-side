@@ -34,7 +34,7 @@ const Shipment = () => {
 					</div>
 				</div>
 				<div className="w-1/3 pl-20">
-					<ShoppingSumarry />
+					<ShoppingSumarry textButton={'Bayar'} />
 				</div>
 			</div>
 		</div>

@@ -3,6 +3,7 @@ import ProductCard from '../components/ProductCard';
 import SideBar from '../components/SideBar';
 import ListSellerProducts from './ListSellerProducts';
 import api from '../api';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 	const [products, setProducts] = useState([]);
@@ -28,7 +29,11 @@ const Home = () => {
 			</div>
 			<div className="w-full h-full grid grid-cols-6 gap-14 p-10 justify-start items-start flex-wrap">
 				{products?.map((data) => {
-					return <ProductCard key={data.id} data={data} />;
+					return (
+						<Link to={`/products/${data.id}`} key={data.id}>
+							<ProductCard data={data} />
+						</Link>
+					);
 				})}
 			</div>
 			{/* <ListSellerProducts /> */}
