@@ -61,6 +61,40 @@ export default function OrdersList() {
           </tbody>
         </table>
       </div>
+      <div className="card bg-base-100 shadow">
+        <div className="card-body">
+          <div className="grid lg:grid-cols-7 md:grid-cols-2 gap-4">
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Nomor Pesanan</h2>
+              <span>1</span>
+            </div>
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Tanggal</h2>
+              <span>19/12/2024</span>
+            </div>
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Nama Toko</h2>
+              <span>Toko Bagus</span>
+            </div>
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Total Pembayaran</h2>
+              <span>Rp125,000.00</span>
+            </div>
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Status Pembayaran</h2>
+              <span>Lunas</span>
+            </div>
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Status Pesanan</h2>
+              <span>Selesai</span>
+            </div>
+            <div className="grid grid-rows-2 gap-1">
+              <h2 className="card-title text-xs">Action</h2>
+              <button className="btn btn-primary btn-xs">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
