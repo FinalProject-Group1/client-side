@@ -6,7 +6,11 @@ export default function AddProduct() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(false);
-  const [productAdded, setProductAdded] = useState(0);
+  const [productAdded, setProductAdded] = useState({
+    ProductId: 0,
+    stock: 0,
+    price: 0,
+  });
 
   const fetch = async () => {
     try {
@@ -17,17 +21,39 @@ export default function AddProduct() {
     }
   };
 
+  function handleSelectedProduct(e, el) {
+    setSelectedProduct(el);
+    setProductAdded({ ...productAdded, ProductId: el.id });
+    console.log(productAdded);
+  }
+
+  function handleStock(e) {
+    setProductAdded({ ...productAdded, stock: e.target.value });
+    console.log(productAdded);
+  }
+
+  function handlePrice(e) {
+    setProductAdded({ ...productAdded, price: e.target.value });
+    console.log(productAdded);
+  }
+
   const addProduct = async () => {
+    const token = searchParams.get('token');
     try {
-      const { data } = api.post('/seller-products', {
-        Headers: {
-          Authorization: `Bearer `,
+      const { data } = await api.post('/seller-products', productAdded, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       });
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  function handleSubmit() {
+    addProduct();
+  }
 
   useEffect(() => {
     fetch();
@@ -57,7 +83,7 @@ export default function AddProduct() {
           {products &&
             products.map((el, index) => {
               return (
-                <li key={index} onClick={() => setSelectedProduct(el)}>
+                <li key={index} onClick={(e) => handleSelectedProduct(e, el)}>
                   <input type="radio" id={el.productName} name="hosting" defaultValue="hosting-small" className="hidden peer" required="" />
                   <label
                     htmlFor={el.productName}
@@ -80,21 +106,23 @@ export default function AddProduct() {
         <div className="label">
           <span className="label-text">Jumlah Stok</span>
         </div>
-        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" />
+        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" onChange={handleStock} />
       </label>
 
       <label className="form-control w-full max-w-xs mb-2">
         <div className="label">
           <span className="label-text">Harga</span>
         </div>
-        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" />
+        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" onChange={handlePrice} />
         <div className="label">
           <span className="label-text-alt">
             Kisaran harga: {selectedProduct && selectedProduct.HER} - {selectedProduct && selectedProduct.HET} / {selectedProduct && selectedProduct.unit}
           </span>
         </div>
       </label>
-      <button className="btn bg-blue-primary text-white">Buat Produk</button>
+      <button className="btn bg-blue-primary text-white" onClick={handleSubmit}>
+        Buat Produk
+      </button>
     </section>
   );
 }
