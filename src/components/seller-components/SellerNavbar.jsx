@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function SellerNavbar() {
   return (
     <section id="navbar">
@@ -23,7 +25,7 @@ export default function SellerNavbar() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li>
-                <a>Akun Pengguna</a>
+                <Link to="/seller/account">Akun Pengguna</Link>
               </li>
               <li>
                 <a className="text-red-primary">Logout</a>

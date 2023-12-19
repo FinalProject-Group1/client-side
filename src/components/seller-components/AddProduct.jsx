@@ -15,7 +15,6 @@ export default function AddProduct() {
           <option>Buah-buahan</option>
           <option>Daging</option>
         </select>
-        <div className="label"></div>
       </label>
 
       <label className="form-control w-full mb-2">
