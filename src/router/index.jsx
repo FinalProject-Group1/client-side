@@ -8,11 +8,30 @@ import ProductsList from '../components/seller-components/ProductsList';
 import EditProduct from '../components/seller-components/EditProduct';
 import SellerEditAccount from '../components/seller-components/SellerEditAccount';
 import { redirect } from 'react-router-dom';
+import ListSellerProducts from '../pages/ListSellerProducts';
+import ShopSeller from '../pages/ShopSeller';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Home />,
+		children: [
+			{
+				path: '',
+				element: <Home />,
+			},
+			{
+				path: '/products/:productId',
+				element: <ListSellerProducts />,
+			},
+			{
+				path: 'shop/:sellerId',
+				element: <ShopSeller />,
+			},
+			{
+				path: 'transaction',
+				element: <OrdersList />,
+			},
+		],
 	},
 	{
 		path: '/seller',

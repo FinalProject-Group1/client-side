@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { toRupiah } from '../helpers/currency';
 import { useSelector } from 'react-redux';
 
-const ShoppingSumarry = ({ textButton }) => {
+const ShoppingSumarry = ({ textButton, onClick }) => {
 	const selectedProducts = useSelector(({ shop }) => shop.selectedProducts);
 
 	return (
@@ -34,7 +34,10 @@ const ShoppingSumarry = ({ textButton }) => {
 					<h1 className="text-zinc-900 font-bold">Total Harga</h1>
 					<h1 className="text-zinc-900 font-bold">Rp 24.000</h1>
 				</div>
-				<button className="w-full py-2 px-8 mt-2 bg-violet-500 rounded-lg text-slate-50 font-bold hover:bg-violet-600">
+				<button
+					onClick={onClick}
+					className="w-full py-2 px-8 mt-2 bg-violet-500 rounded-lg text-slate-50 font-bold hover:bg-violet-600"
+				>
 					{textButton}
 				</button>
 			</div>
@@ -46,4 +49,5 @@ export default ShoppingSumarry;
 
 ShoppingSumarry.propTypes = {
 	textButton: PropTypes.string,
+	onClick: PropTypes.func,
 };
