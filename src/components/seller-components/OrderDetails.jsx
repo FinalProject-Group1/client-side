@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function OrderDetails() {
   return (
     <section id="order-details" className="p-8 mb-10">
@@ -56,7 +58,10 @@ export default function OrderDetails() {
           </div>
         </div>
       </div>
-      <button className="btn bg-red-primary text-white mt-3">Kembali</button>
+      <Link to="/seller">
+        {" "}
+        <button className="btn bg-red-primary text-white mt-3">Kembali</button>
+      </Link>
     </section>
   );
 }
