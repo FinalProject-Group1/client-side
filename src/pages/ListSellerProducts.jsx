@@ -39,7 +39,9 @@ const ListSellerProducts = () => {
 	return (
 		<div className="w-full min-h-screen px-10 py-6 flex flex-col gap-4">
 			<div>
-				<h1 className="text-3xl font-bold">Potato</h1>
+				<h1 className="text-3xl font-bold text-center">
+					{product?.productName}
+				</h1>
 			</div>
 			<div className="w-full flex justify-between relative my-6">
 				<div className="absolute top-[34px] w-full h-1 bg-violet-primary rounded-full"></div>

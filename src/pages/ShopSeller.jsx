@@ -22,7 +22,32 @@ const ShopSeller = () => {
 		fetchSellerDetail();
 	}, []);
 
-	console.log(selectedProducts);
+	// console.log(selectedProducts);
+
+	const handleOnBuy = async () => {
+		try {
+			// const test = selectedProducts.map((product) => {
+			// 	return {
+			// 		id: product.id,
+			// 		quantity: product.quantity,
+			// 	};
+			// });
+			// console.log(test, 'testtttt');
+
+			const { data } = await api.post(`/order`, {
+				SellerId: sellerId,
+				products: selectedProducts.map((product) => {
+					return {
+						SellerProductId: product.id,
+						quantity: product.quantity,
+					};
+				}),
+			});
+			console.log(data, 'create invoice');
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<div className="w-full min-h-screen gap-10 bg-slate-50">
@@ -47,10 +72,7 @@ const ShopSeller = () => {
 					})}
 				</div>
 				<div className="w-1/3 flex pr-20 justify-center">
-					<ShoppingSumarry
-						textButton={'Beli'}
-						// selectedProducts={selectedProducts}
-					/>
+					<ShoppingSumarry textButton={'Beli'} onClick={handleOnBuy} />
 				</div>
 			</div>
 		</div>
