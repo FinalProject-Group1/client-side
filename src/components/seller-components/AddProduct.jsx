@@ -12,7 +12,7 @@ export default function AddProduct() {
           </option>
           <option>Sembako</option>
           <option>Sayuran</option>
-          <option>Buah</option>
+          <option>Buah-buahan</option>
           <option>Daging</option>
         </select>
         <div className="label"></div>
