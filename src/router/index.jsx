@@ -4,6 +4,7 @@ import Dashboard from '../pages/Dashboard';
 import OrdersList from '../components/seller-components/OrdersList';
 import { redirect } from 'react-router-dom';
 import ListSellerProducts from '../pages/ListSellerProducts';
+import ShopSeller from '../pages/ShopSeller';
 
 const router = createBrowserRouter([
 	{
@@ -16,6 +17,14 @@ const router = createBrowserRouter([
 			{
 				path: 'products/:productId',
 				element: <ListSellerProducts />,
+			},
+			{
+				path: 'shop/:sellerId',
+				element: <ShopSeller />,
+			},
+			{
+				path: 'transaction',
+				element: <OrdersList />,
 			},
 		],
 	},

@@ -3,6 +3,7 @@ import SellerProductCard from '../components/SellerProductCard';
 import { useEffect, useState } from 'react';
 import api from '../api';
 import { toRupiah } from '../helpers/currency';
+import { Link } from 'react-router-dom';
 
 const ListSellerProducts = () => {
 	const { productId } = useParams();
@@ -66,9 +67,13 @@ const ListSellerProducts = () => {
 			</div>
 			{products.map((data) => {
 				return (
-					<div key={data.id} className="w-full h-24">
+					<Link
+						to={`/shop/${data.SellerId}`}
+						key={data.id}
+						className="w-full h-24"
+					>
 						<SellerProductCard data={data} />
-					</div>
+					</Link>
 				);
 			})}
 		</div>
