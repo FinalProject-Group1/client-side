@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function OrdersList() {
   return (
     <section id="orders-list" className="p-8 mb-10">
@@ -26,9 +28,12 @@ export default function OrdersList() {
               <td>Lunas</td>
               <td>Selesai</td>
               <td>
-                <button className="btn btn btn-xs bg-green-primary mb-2 mr-2 truncate md:text-clip">
-                  Lihat Detail
-                </button>
+                <Link to="/seller/transaction/:id">
+                  {" "}
+                  <button className="btn btn btn-xs bg-green-primary mb-2 mr-2 truncate md:text-clip">
+                    Lihat Detail
+                  </button>
+                </Link>
                 <button className="btn btn btn-xs bg-yellow-primary truncate md:text-clip">
                   Kirim Pesanan
                 </button>
@@ -43,9 +48,11 @@ export default function OrdersList() {
               <td>Lunas</td>
               <td>Diproses</td>
               <td>
-                <button className="btn btn-xs bg-green-primary mb-2 mr-2">
-                  Lihat Detail
-                </button>
+                <Link to="/seller/transaction/:id">
+                  <button className="btn btn-xs bg-green-primary mb-2 mr-2">
+                    Lihat Detail
+                  </button>
+                </Link>
                 <button className="btn btn-xs bg-yellow-primary">
                   Kirim Pesanan
                 </button>

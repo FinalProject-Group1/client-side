@@ -13,7 +13,6 @@ export default function AddProduct() {
           <option>Sayuran</option>
           <option>Buah</option>
         </select>
-        <div className="label"></div>
       </label>
 
       <label className="form-control w-full mb-2">
