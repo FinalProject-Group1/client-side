@@ -1,7 +1,7 @@
 export default function SellerNavbar() {
   return (
     <section id="navbar">
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 shadow">
         <div className="flex-1">
           <img src="/Terrarium_icon.png" className="ml-4 mr-2 h-auto w-10" />
           <a className="text-xl font-fredoka">Terrarium</a>

@@ -1,31 +1,35 @@
-import { createBrowserRouter } from 'react-router-dom';
-import Home from '../pages/Home';
-import Dashboard from '../pages/Dashboard';
-import OrdersList from '../components/seller-components/OrdersList';
-import { redirect } from 'react-router-dom';
-import Register from '../pages/Register';
+import { createBrowserRouter } from "react-router-dom";
+import Home from "../pages/Home";
+import Dashboard from "../pages/Dashboard";
+import OrdersList from "../components/seller-components/OrdersList";
+import { redirect } from "react-router-dom";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
   },
   {
-    path: '/seller',
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/seller",
     element: <Dashboard />,
     children: [
       {
-        path: '',
-        loader: () => redirect('/seller/transaction'),
+        path: "",
+        loader: () => redirect("/seller/transaction"),
       },
       {
-        path: 'transaction',
+        path: "transaction",
         element: <OrdersList />,
       },
     ],
   },
   {
-    path: '/register',
+    path: "/register",
     element: <Register />,
   },
 ]);
