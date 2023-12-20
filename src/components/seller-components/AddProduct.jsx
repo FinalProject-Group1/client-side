@@ -68,9 +68,15 @@ export default function AddProduct() {
           <span className="label-text">Kategori Produk</span>
         </div>
         <select className="select select-bordered w-full max-w-xs">
-          <option disabled>Pilih</option>
-          <option>Choose product</option>
-          <option>Buah</option>
+
+          <option disabled selected>
+            Pilih
+          </option>
+          <option>Sembako</option>
+          <option>Sayuran</option>
+          <option>Buah-buahan</option>
+          <option>Daging</option>
+
         </select>
       </label>
 
