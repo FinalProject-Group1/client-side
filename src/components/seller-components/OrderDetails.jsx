@@ -24,6 +24,8 @@ export default function OrderDetails() {
         setOrderStatus('Di proses');
       } else if (data.orderStatus === 'shipment') {
         setOrderStatus('Sedang di kirim');
+      } else if (data.orderStatus === 'cancel') {
+        setOrderStatus('Di batalkan');
       } else {
         setOrderStatus('Telah di terima');
       }
@@ -54,12 +56,33 @@ export default function OrderDetails() {
     }
   };
 
+  const changeStatusCancel = async () => {
+    try {
+      const { data } = await api.put(
+        '/seller-order-cancel',
+        { BuyerId: transactions.buyer.id, InvoiceId: transactions.id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetch();
   }, []);
 
   async function handleChangeStatus() {
     await changeStatus();
+    await fetch();
+  }
+  async function handleChangeStatusCancel() {
+    await changeStatusCancel();
     await fetch();
   }
   return (
@@ -69,6 +92,9 @@ export default function OrderDetails() {
         Status Pesanan: <span className="font-bold">{orderStatus}</span>
         <button className="btn btn-xs bg-yellow-primary ml-3" onClick={handleChangeStatus}>
           Kirim Pesanan
+        </button>
+        <button className="btn btn-xs bg-red-primary ml-3" onClick={handleChangeStatusCancel}>
+          Batalkan Pesanan
         </button>
       </div>
       <div className="grid lg:grid-cols-2 gap-3">
@@ -96,7 +122,6 @@ export default function OrderDetails() {
             <div className="grid grid-cols-2 gap-3 font-bold text-sm">
               <p>Jumlah Pembayaran</p>
               <p className="grid justify-items-end">Rp{transactions?.pendingAmount}</p>
-
             </div>
           </div>
         </div>
@@ -115,7 +140,6 @@ export default function OrderDetails() {
               <p>Alamat</p>
 
               <p>{transactions?.buyer?.address}</p>
-
             </div>
           </div>
         </div>
