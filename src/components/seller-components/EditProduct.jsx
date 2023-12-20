@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
-import api from '../../api';
+import { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import api from "../../api";
+import Swal from "sweetalert2";
 
 export default function EditProduct() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams();
-  const token = searchParams.get('token');
+  const token = searchParams.get("token");
   const [product, setProduct] = useState({});
   const [edit, setEdit] = useState({
     stock: 0,
@@ -49,6 +50,11 @@ export default function EditProduct() {
       console.log(data);
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error.response.data.message}`,
+      });
     }
   };
 
@@ -68,17 +74,32 @@ export default function EditProduct() {
         <div className="label">
           <span className="label-text">Jumlah Stok</span>
         </div>
-        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" value={edit.stock} onChange={(e) => handleEdit({ key: 'stock', e })} />
+        <input
+          type="number"
+          placeholder="Type here"
+          min="0"
+          className="input input-bordered w-full max-w-xs"
+          value={edit.stock}
+          onChange={(e) => handleEdit({ key: "stock", e })}
+        />
       </label>
 
       <label className="form-control w-full max-w-xs mb-2">
         <div className="label">
           <span className="label-text">Harga</span>
         </div>
-        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" value={edit.price} onChange={(e) => handleEdit({ key: 'price', e })} />
+        <input
+          type="number"
+          placeholder="Type here"
+          min="0"
+          className="input input-bordered w-full max-w-xs"
+          value={edit.price}
+          onChange={(e) => handleEdit({ key: "price", e })}
+        />
         <div className="label">
           <span className="label-text-alt">
-            Kisaran harga:${product?.product?.HER} - ${product?.product?.HET} / kg
+            Kisaran harga:${product?.product?.HER} - ${product?.product?.HET} /
+            kg
           </span>
         </div>
       </label>
