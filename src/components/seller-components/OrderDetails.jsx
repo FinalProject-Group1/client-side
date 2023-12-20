@@ -4,11 +4,13 @@ import api from '../../api';
 
 export default function OrderDetails() {
   const [transactions, setTransactions] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const [orderStatus, setOrderStatus] = useState('Di proses');
   const [subTotal, setSubTotal] = useState(0);
   const { id } = useParams();
   const token = searchParams.get('token');
+  const [showButton, setShowButton] = useState(false);
 
   const fetch = async () => {
     setSubTotal(0);
@@ -29,6 +31,13 @@ export default function OrderDetails() {
       } else {
         setOrderStatus('Telah di terima');
       }
+
+      if (data.paymentStatus === 'paid') {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+
       let resultPrice = 0;
       data.OrderItems.forEach((el) => {
         resultPrice = resultPrice + el.sellerproduct.price * el.quantity;
@@ -51,6 +60,7 @@ export default function OrderDetails() {
         }
       );
       console.log(data);
+      setShowButton(false);
     } catch (error) {
       console.log(error);
     }
@@ -68,6 +78,7 @@ export default function OrderDetails() {
         }
       );
       console.log(data);
+      setShowButton(false);
     } catch (error) {
       console.log(error);
     }
@@ -88,15 +99,21 @@ export default function OrderDetails() {
   return (
     <section id="order-details" className="p-8 mb-10">
       <h1 className="text-xl font-bold mb-3">Details Pesanan</h1>
-      <div className="mb-3">
-        Status Pesanan: <span className="font-bold">{orderStatus}</span>
-        <button className="btn btn-xs bg-yellow-primary ml-3" onClick={handleChangeStatus}>
-          Kirim Pesanan
-        </button>
-        <button className="btn btn-xs bg-red-primary ml-3" onClick={handleChangeStatusCancel}>
-          Batalkan Pesanan
-        </button>
-      </div>
+      {showButton ? (
+        <div className="mb-3">
+          Status Pesanan: <span className="font-bold">{orderStatus}</span>
+          <button className="btn btn-xs bg-yellow-primary ml-3" onClick={handleChangeStatus}>
+            Kirim Pesanan
+          </button>
+          <button className="btn btn-xs bg-red-primary ml-3" onClick={handleChangeStatusCancel}>
+            Batalkan Pesanan
+          </button>
+        </div>
+      ) : (
+        <div className="mb-3">
+          Status Pesanan: <span className="font-bold">{orderStatus}</span>
+        </div>
+      )}
       <div className="grid lg:grid-cols-2 gap-3">
         <div className="card-normal bg-gray-100 rounded">
           <div className="card-body">
@@ -144,7 +161,7 @@ export default function OrderDetails() {
           </div>
         </div>
       </div>
-      <Link to="/seller">
+      <Link to={`/seller/transaction?token=${token}`}>
         {' '}
         <button className="btn bg-red-primary text-white mt-3">Kembali</button>
       </Link>

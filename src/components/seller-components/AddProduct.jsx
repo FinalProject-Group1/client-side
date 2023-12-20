@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import api from "../../api";
 import { useSearchParams } from "react-router-dom";
@@ -8,16 +9,21 @@ export default function AddProduct() {
   const [products, setProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+
   const [productAdded, setProductAdded] = useState({
     ProductId: 0,
     stock: 0,
     price: 0,
   });
 
+  const navigate = useNavigate();
+
+
   const fetch = async () => {
     try {
       const { data } = await api.get("/products?category=" + selectedCategory);
       setProducts(data);
+
     } catch (error) {
       console.log(error);
     }
@@ -40,14 +46,17 @@ export default function AddProduct() {
   }
 
   const addProduct = async () => {
+
     const token = searchParams.get("token");
     try {
       const { data } = await api.post("/seller-products", productAdded, {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
+
+      navigate(`/seller/products?token=${token}`);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -55,6 +64,7 @@ export default function AddProduct() {
         title: "Oops...",
         text: `${error.response.data.message}`,
       });
+
     }
   };
 
@@ -77,9 +87,11 @@ export default function AddProduct() {
         <div className="label">
           <span className="label-text">Kategori Produk</span>
         </div>
+
         <select
           className="select select-bordered w-full max-w-xs"
           onChange={(e) => setSelectedCategory(e.target.value)}>
+
           <option disabled selected>
             Pilih
           </option>
@@ -99,6 +111,7 @@ export default function AddProduct() {
           {products &&
             products.map((el, index) => {
               return (
+
                 <li
                   className=""
                   key={index}
@@ -126,6 +139,7 @@ export default function AddProduct() {
                         <div className="w-full text-sm mt-3 mb-2 text-center">
                           {el.productName}
                         </div>
+
                       </div>
                     </div>
                   </label>
@@ -139,6 +153,7 @@ export default function AddProduct() {
         <div className="label">
           <span className="label-text">Jumlah Stok</span>
         </div>
+
         <input
           type="number"
           placeholder="Type here"
@@ -146,12 +161,14 @@ export default function AddProduct() {
           className="input input-bordered w-full max-w-xs"
           onChange={handleStock}
         />
+
       </label>
 
       <label className="form-control w-full max-w-xs mb-2">
         <div className="label">
           <span className="label-text">Harga</span>
         </div>
+
         <input
           type="number"
           placeholder="Type here"
@@ -164,6 +181,7 @@ export default function AddProduct() {
             Kisaran harga: {selectedProduct && selectedProduct.HER} -{" "}
             {selectedProduct && selectedProduct.HET} /{" "}
             {selectedProduct && selectedProduct.unit}
+
           </span>
         </div>
       </label>

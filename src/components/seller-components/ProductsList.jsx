@@ -3,17 +3,19 @@ import { Link, useSearchParams } from 'react-router-dom';
 import api from '../../api';
 
 export default function ProductList() {
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get('token');
   const [products, setProducts] = useState([]);
 
   const fetch = async () => {
     try {
-      const { data } = await api.get('/user/seller-products', {
+      const { data } = await api.get('/users/seller-products', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(data);
       setProducts(data.products);
     } catch (error) {
       console.log(error);
@@ -48,7 +50,7 @@ export default function ProductList() {
                   <td>
                     <div className="avatar">
                       <div className="mask rounded w-40 h-40">
-                        <img src="https://images.unsplash.com/photo-1565685225009-fc85d9109c80" alt="Bawang Merah Image" />
+                        <img src={el.product.imageUrl} alt="Bawang Merah Image" />
                       </div>
                     </div>
                   </td>

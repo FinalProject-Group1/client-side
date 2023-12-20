@@ -1,8 +1,11 @@
-import { Outlet } from "react-router-dom";
-import SellerNavbar from "../components/seller-components/SellerNavbar";
-import { Link } from "react-router-dom";
+import { Outlet, useSearchParams } from 'react-router-dom';
+import SellerNavbar from '../components/seller-components/SellerNavbar';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
+  // eslint-disable-next-line no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get('token');
   return (
     <>
       <SellerNavbar />
@@ -16,40 +19,20 @@ export default function Dashboard() {
             <Outlet />
           </div>
           <div className="flex-none pl-2 lg:hidden">
-            <label
-              htmlFor="my-drawer"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block w-6 h-6 stroke-current">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"></path>
+            <label htmlFor="my-drawer" aria-label="open sidebar" className="btn btn-square btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </label>
           </div>
 
           <div className="drawer-side">
-            <label
-              htmlFor="my-drawer"
-              aria-label="close sidebar"
-              className="drawer-overlay"></label>
+            <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
             <ul className="menu p-4 w-80 min-h-full bg-gray-100 text-base-content text-md font-medium">
               {/* Sidebar content here */}
               <li className="mb-2 hover:font-bold">
-                <Link to="/seller/transaction">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6">
+                <Link to={`/seller/transaction?token=${token}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -60,14 +43,8 @@ export default function Dashboard() {
                 </Link>
               </li>
               <li className="mb-2 hover:font-bold">
-                <Link to="/seller/products">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6">
+                <Link to={`/seller/products?token=${token}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -78,14 +55,8 @@ export default function Dashboard() {
                 </Link>
               </li>
               <li className="mb-2 hover:font-bold">
-                <Link to="/seller/add-product">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6">
+                <Link to={`/seller/add-product?token=${token}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
