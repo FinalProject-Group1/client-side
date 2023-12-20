@@ -13,20 +13,18 @@ import ShopSeller from '../pages/ShopSeller';
 import Shipment from '../pages/Shipment';
 import Register from '../pages/Register';
 import Login from '../pages/Login';
-import { getToken } from '../features/user/actions';
+import { getRole, getToken } from '../features/user/actions';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
+		loader: () => {
+			if (getToken() && getRole() === 'seller') {
+				return redirect('/seller');
+			}
+			return null;
+		},
 		children: [
-			{
-				path: 'register',
-				element: <Register />,
-			},
-			{
-				path: 'login',
-				element: <Login />,
-			},
 			{
 				path: '',
 				element: <Home />,
@@ -41,19 +39,49 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'checkout/:invoiceId',
-				loader: () => (getToken() ? null : redirect('/login')),
+				loader: () => {
+					return getToken() ? null : redirect('/login');
+				},
 				element: <Shipment />,
 			},
 			{
 				path: 'transaction',
-				loader: () => (getToken() ? null : redirect('/login')),
+				loader: () => {
+					return getToken() ? null : redirect('/login');
+				},
 				element: <OrdersList />,
 			},
 		],
 	},
 	{
+		path: '/',
+		loader: () => {
+			if (getToken()) {
+				if (getRole() === 'buyer') return redirect('/');
+				if (getRole() === 'seller') return redirect('/seller');
+			}
+			return null;
+		},
+		children: [
+			{
+				path: 'register',
+				element: <Register />,
+			},
+			{
+				path: 'login',
+				element: <Login />,
+			},
+		],
+	},
+	{
 		path: '/seller',
-		loader: () => (getToken() ? null : redirect('/login')),
+		loader: () => {
+			if (!getToken()) return redirect('/login');
+			if (getRole() === 'buyer' && getToken()) {
+				return redirect('/');
+			}
+			return null;
+		},
 		element: <Dashboard />,
 		children: [
 			{
