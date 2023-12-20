@@ -74,7 +74,7 @@ export default function OrderDetails() {
       <div className="grid lg:grid-cols-2 gap-3">
         <div className="card-normal bg-gray-100 rounded">
           <div className="card-body">
-            <h2 className="card-title text-lg">Item Details</h2>
+            <h2 className="card-title text-lg">Informasi Pesanan</h2>
             {transactions?.OrderItems?.map((el, index) => {
               return (
                 <div className="grid grid-cols-4 gap-3 text-sm" key={index}>
@@ -90,18 +90,19 @@ export default function OrderDetails() {
               <p className="grid justify-items-end">Rp{subTotal}</p>
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
-              <p>Shipping Fee</p>
+              <p>Ongkos Kirim</p>
               <p className="grid justify-items-end">Rp9000</p>
             </div>
             <div className="grid grid-cols-2 gap-3 font-bold text-sm">
-              <p>Total Payment</p>
+              <p>Jumlah Pembayaran</p>
               <p className="grid justify-items-end">Rp{transactions?.pendingAmount}</p>
+
             </div>
           </div>
         </div>
         <div className="card-normal bg-gray-100 rounded">
           <div className="card-body">
-            <h2 className="card-title text-lg">Customer Details</h2>
+            <h2 className="card-title text-lg">Informasi Pembeli</h2>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <p>Nama</p>
               <p>{transactions?.buyer?.fullname}</p>
@@ -112,7 +113,9 @@ export default function OrderDetails() {
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <p>Alamat</p>
+
               <p>{transactions?.buyer?.address}</p>
+
             </div>
           </div>
         </div>
