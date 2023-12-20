@@ -10,8 +10,10 @@ export default function AddProduct() {
           <option disabled selected>
             Pilih
           </option>
+          <option>Sembako</option>
           <option>Sayuran</option>
-          <option>Buah</option>
+          <option>Buah-buahan</option>
+          <option>Daging</option>
         </select>
       </label>
 
