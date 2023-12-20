@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 export default function OrdersList() {
   const [transactions, setTransactions] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const [dataSeller, setDataSeller] = useState('');
 
@@ -75,10 +76,10 @@ export default function OrdersList() {
                   <span>{el.orderStatus}</span>
                 </div>
                 <div className="grid grid-rows-2 gap-1">
-                  <Link to="/seller/transaction/:id">
+                  <Link to={`/seller/transaction/${el.id}?token=${token}`}>
                     <button className="w-full btn btn-xs bg-green-primary truncate md:text-clip">Lihat Detail</button>
                   </Link>
-                  <button className="w-full btn btn-xs bg-yellow-primary truncate md:text-clip">Kirim Pesanan</button>
+                  {/* <button className="w-full btn btn-xs bg-yellow-primary truncate md:text-clip">Kirim Pesanan</button> */}
                 </div>
               </div>
             </div>

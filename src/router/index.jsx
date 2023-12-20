@@ -76,7 +76,6 @@ const router = createBrowserRouter([
   {
     path: '/seller',
     loader: () => {
-      if (!getToken()) return redirect('/login');
       if (getRole() === 'buyer' && getToken()) {
         return redirect('/');
       }
@@ -86,7 +85,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        loader: () => redirect('/seller/transaction'),
+        loader: () => redirect(`/seller/transaction?token${getToken()}`),
       },
       {
         path: 'transaction',

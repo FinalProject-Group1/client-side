@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import api from '../../api';
 
 export default function EditProduct() {
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams();
   const token = searchParams.get('token');
@@ -11,6 +12,7 @@ export default function EditProduct() {
     stock: 0,
     price: 0,
   });
+  const navigate = useNavigate();
 
   const fetch = async () => {
     try {
@@ -46,7 +48,7 @@ export default function EditProduct() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
+      navigate(`/seller/products?token=${token}`);
     } catch (error) {
       console.log(error);
     }

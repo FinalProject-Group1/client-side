@@ -1,6 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { getToken } from '../../features/user/actions';
 
 export default function SellerNavbar() {
+  // eslint-disable-next-line no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get('token');
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    const tokenLocalStorage = getToken();
+    if (tokenLocalStorage) {
+      localStorage.removeItem('access_token');
+    }
+    navigate('/login');
+  }
+
   return (
     <section id="navbar">
       <div className="navbar bg-base-100 shadow">
@@ -10,25 +24,19 @@ export default function SellerNavbar() {
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
               </div>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li>
-                <Link to="/seller/account">Akun Pengguna</Link>
+                <Link to={`/seller/account?token=${token}`}>Akun Pengguna</Link>
               </li>
               <li>
-                <a className="text-red-primary">Logout</a>
+                <a onClick={handleLogout} className="text-red-primary">
+                  Logout
+                </a>
               </li>
             </ul>
           </div>

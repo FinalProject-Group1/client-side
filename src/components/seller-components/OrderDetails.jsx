@@ -4,6 +4,7 @@ import api from '../../api';
 
 export default function OrderDetails() {
   const [transactions, setTransactions] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const [orderStatus, setOrderStatus] = useState('Di proses');
   const [subTotal, setSubTotal] = useState(0);
