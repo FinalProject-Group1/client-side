@@ -1,4 +1,41 @@
+import { useEffect, useState } from 'react';
+import { getProfileApi } from '../../features/user/actions';
+import { useSearchParams } from 'react-router-dom';
+import api from '../../api';
+
 export default function SellerEditAccount() {
+  // eslint-disable-next-line no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get('token');
+  const [profile, setProfile] = useState({
+    address: '',
+    city: '',
+    fullname: '',
+    id: '',
+    phoneNumber: '',
+    role: '',
+    saldo: '',
+    shopName: '',
+  });
+
+  const fetch = async () => {
+    try {
+      const { data } = await api.get('/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+      setProfile(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <section id="seller-account" className="p-8">
       <div className="w-2/3 flex-col">
@@ -6,16 +43,9 @@ export default function SellerEditAccount() {
           <div className="card bg-base-100 shadow">
             <div className="card-body">
               <div className="card-title text-base">Nama Lengkap:</div>
-              <span>Jokowi Dodo</span>
+              <span>-</span>
               <div className="absolute top-5 right-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  data-slot="icon"
-                  className="w-8 h-8 stroke-green-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -28,16 +58,9 @@ export default function SellerEditAccount() {
           <div className="card bg-base-100 shadow">
             <div className="card-body">
               <div className="card-title text-base">Nama Toko:</div>
-              <span>Toko Rajawali Merah</span>
+              <span>{profile.shopName}</span>
               <div className="absolute top-5 right-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  data-slot="icon"
-                  className="w-8 h-8 stroke-green-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -50,16 +73,9 @@ export default function SellerEditAccount() {
           <div className="card bg-base-100 shadow">
             <div className="card-body">
               <div className="card-title text-base">Nomor Handphone:</div>
-              <span>09811237485</span>
+              <span>{profile.phoneNumber}</span>
               <div className="absolute top-5 right-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  data-slot="icon"
-                  className="w-8 h-8 stroke-green-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -71,49 +87,12 @@ export default function SellerEditAccount() {
           </div>
           <div className="card bg-base-100 shadow">
             <div className="card-body">
-              <div className="card-title text-base">Alamat:</div>
-              <span>Jalan Sudirman Raya No. 21A</span>
-              <div className="absolute top-5 right-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  data-slot="icon"
-                  className="w-8 h-8 stroke-green-primary">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div className="card bg-base-100 shadow">
-            <div className="card-body">
               <div className="card-title text-base">Kota/Kabupaten:</div>
-              <span>Jakarta Timur</span>
+              <span>{profile.city}</span>
               <div className="absolute top-5 right-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  data-slot="icon"
-                  className="w-8 h-8 stroke-green-primary">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                 </svg>
               </div>
             </div>
@@ -121,16 +100,9 @@ export default function SellerEditAccount() {
           <div className="card bg-base-100 shadow">
             <div className="card-body">
               <div className="card-title text-base">Saldo:</div>
-              <span>Rp1.000.000.000,00</span>
+              <span>{profile.saldo}</span>
               <div className="absolute top-5 right-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  data-slot="icon"
-                  className="w-8 h-8 stroke-green-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

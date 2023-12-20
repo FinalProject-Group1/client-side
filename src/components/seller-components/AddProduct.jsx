@@ -19,6 +19,7 @@ export default function AddProduct() {
     try {
       const { data } = await api.get('/products?category=' + selectedCategory);
       setProducts(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }

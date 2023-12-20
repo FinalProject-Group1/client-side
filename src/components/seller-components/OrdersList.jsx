@@ -21,18 +21,23 @@ export default function OrdersList() {
         },
       });
       setDataSeller(data);
+      console.log(data.seller, '<<< ini datanya');
+
       const newData = data.seller.map((el) => {
         if (el.orderStatus === 'progress') {
           el.orderStatus = 'Di proses';
         } else if (el.orderStatus === 'shipment') {
           el.orderStatus = 'Di Kirim';
+        } else if (el.orderStatus === 'cancel') {
+          el.orderStatus = 'Di batalkan';
         } else {
           el.orderStatus = 'Telah di terima';
         }
         return el;
       });
+      console.log(newData);
       setTransactions(newData);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }

@@ -43,7 +43,7 @@ export default function EditProduct() {
 
   const editProduct = async () => {
     try {
-      const { data } = await api.put(`/seller-products/${id}`, edit, {
+      await api.put(`/seller-products/${id}`, edit, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
