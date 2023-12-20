@@ -10,6 +10,7 @@ import SellerEditAccount from '../components/seller-components/SellerEditAccount
 import { redirect } from 'react-router-dom';
 import ListSellerProducts from '../pages/ListSellerProducts';
 import ShopSeller from '../pages/ShopSeller';
+import Shipment from '../pages/Shipment';
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 			{
 				path: 'shop/:sellerId',
 				element: <ShopSeller />,
+			},
+			{
+				path: 'checkout/:invoiceId',
+				element: <Shipment />,
 			},
 			{
 				path: 'transaction',

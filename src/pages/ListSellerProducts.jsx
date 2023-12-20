@@ -24,6 +24,7 @@ const ListSellerProducts = () => {
 		const fetchCurrentProduct = async () => {
 			try {
 				const { data } = await api.get(`/products/${productId}`);
+				// console.log(data, '>>>>>');
 				setProduct(data);
 			} catch (error) {
 				console.log(error);
@@ -67,17 +68,18 @@ const ListSellerProducts = () => {
 					</p>
 				</div>
 			</div>
-			{products.map((data) => {
-				return (
-					<Link
-						to={`/shop/${data.SellerId}`}
-						key={data.id}
-						className="w-full h-24"
-					>
-						<SellerProductCard data={data} />
-					</Link>
-				);
-			})}
+			{Boolean(products.length) &&
+				products?.map((data) => {
+					return (
+						<Link
+							to={`/shop/${data.SellerId}`}
+							key={data.id}
+							className="w-full h-24"
+						>
+							<SellerProductCard data={data} />
+						</Link>
+					);
+				})}
 		</div>
 	);
 };

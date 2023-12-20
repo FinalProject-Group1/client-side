@@ -1,5 +1,4 @@
 import CustomInput from '../components/CustomInput';
-import RegisterFormBuyer from '../components/RegisterFormBuyer';
 import SubmitButton from '../components/SubmitButton';
 
 const Login = () => {
