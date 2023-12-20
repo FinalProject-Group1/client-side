@@ -1,17 +1,31 @@
 // import axios from 'axios';
 // import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import api from '../../api';
+import { useEffect, useState } from 'react';
 
 export default function OrdersList() {
-  // const [transactions, setTransactions] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const { id } = useParams();
+  const token = searchParams.get('token');
 
-  // const fetch = async () => {
-  //   try {
-  //     const {data} = await axios.
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const fetch = async () => {
+    try {
+      const { data } = await api.get('/invoices-seller', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <section id="orders-list" className="p-8 mb-10">
