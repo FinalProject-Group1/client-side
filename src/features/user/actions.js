@@ -19,6 +19,6 @@ export const getProfileApi = async () => {
 			Authorization: `Bearer ${getToken()}`,
 		},
 	});
-	console.log('data profile api', data);
+	// console.log('data profile api', data);
 	return data;
 };

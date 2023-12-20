@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react';
-import api from '../../api';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+
+import { useEffect, useState } from "react";
+import api from "../../api";
+import { useSearchParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function AddProduct() {
-  // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const [productAdded, setProductAdded] = useState({
     ProductId: 0,
     stock: 0,
     price: 0,
   });
+
   const navigate = useNavigate();
+
 
   const fetch = async () => {
     try {
-      const { data } = await api.get('/products?category=' + selectedCategory);
+      const { data } = await api.get("/products?category=" + selectedCategory);
       setProducts(data);
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }
@@ -42,16 +46,25 @@ export default function AddProduct() {
   }
 
   const addProduct = async () => {
-    const token = searchParams.get('token');
+
+    const token = searchParams.get("token");
     try {
-      await api.post('/seller-products', productAdded, {
+      const { data } = await api.post("/seller-products", productAdded, {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
       navigate(`/seller/products?token=${token}`);
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error.response.data.message}`,
+      });
+
     }
   };
 
@@ -74,7 +87,11 @@ export default function AddProduct() {
         <div className="label">
           <span className="label-text">Kategori Produk</span>
         </div>
-        <select className="select select-bordered w-full max-w-xs" onChange={(e) => setSelectedCategory(e.target.value)}>
+
+        <select
+          className="select select-bordered w-full max-w-xs"
+          onChange={(e) => setSelectedCategory(e.target.value)}>
+
           <option disabled selected>
             Pilih
           </option>
@@ -94,18 +111,35 @@ export default function AddProduct() {
           {products &&
             products.map((el, index) => {
               return (
-                <li className="" key={index} onClick={(e) => handleSelectedProduct(e, el)}>
-                  <input type="radio" id={el.productName} name="hosting" defaultValue="hosting-small" className="hidden peer" required="" />
+
+                <li
+                  className=""
+                  key={index}
+                  onClick={(e) => handleSelectedProduct(e, el)}>
+                  <input
+                    type="radio"
+                    id={el.productName}
+                    name="hosting"
+                    defaultValue="hosting-small"
+                    className="hidden peer"
+                    required=""
+                  />
                   <label
                     htmlFor={el.productName}
-                    className="inline-flex items-center justify-between w-full h-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-primary peer-checked:text-blue-primary hover:text-gray-600 hover:bg-gray-100"
-                  >
+                    className="inline-flex items-center justify-between w-full h-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-primary peer-checked:text-blue-primary hover:text-gray-600 hover:bg-gray-100">
                     <div className="block w-full h-full">
                       <div className="mask rounded h-3/4 w-full">
-                        <img className="mask rounded w-full h-full aspect-square" src={el.imageUrl} alt="Bawang Merah Image" />
+                        <img
+                          className="mask rounded w-full h-full aspect-square"
+                          src={el.imageUrl}
+                          alt="Bawang Merah Image"
+                        />
                       </div>
                       <div className="flex flex-col justify-center h-1/4">
-                        <div className="w-full text-sm mt-3 mb-2 text-center">{el.productName}</div>
+                        <div className="w-full text-sm mt-3 mb-2 text-center">
+                          {el.productName}
+                        </div>
+
                       </div>
                     </div>
                   </label>
@@ -119,17 +153,35 @@ export default function AddProduct() {
         <div className="label">
           <span className="label-text">Jumlah Stok</span>
         </div>
-        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" onChange={handleStock} />
+
+        <input
+          type="number"
+          placeholder="Type here"
+          min="0"
+          className="input input-bordered w-full max-w-xs"
+          onChange={handleStock}
+        />
+
       </label>
 
       <label className="form-control w-full max-w-xs mb-2">
         <div className="label">
           <span className="label-text">Harga</span>
         </div>
-        <input type="number" placeholder="Type here" min="0" className="input input-bordered w-full max-w-xs" onChange={handlePrice} />
+
+        <input
+          type="number"
+          placeholder="Type here"
+          min="0"
+          className="input input-bordered w-full max-w-xs"
+          onChange={handlePrice}
+        />
         <div className="label">
           <span className="label-text-alt">
-            Kisaran harga: {selectedProduct && selectedProduct.HER} - {selectedProduct && selectedProduct.HET} / {selectedProduct && selectedProduct.unit}
+            Kisaran harga: {selectedProduct && selectedProduct.HER} -{" "}
+            {selectedProduct && selectedProduct.HET} /{" "}
+            {selectedProduct && selectedProduct.unit}
+
           </span>
         </div>
       </label>
