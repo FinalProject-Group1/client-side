@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import SubmitButton from './SubmitButton';
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const RegisterFormBuyer = () => {
 	const navigate = useNavigate();
@@ -16,7 +16,7 @@ const RegisterFormBuyer = () => {
 
 	const register = async () => {
 		try {
-			const { data } = await axios.post(`/register`, user);
+			const { data } = await api.post(`/register`, user);
 			console.log(data);
 			navigate('/login');
 		} catch (error) {
@@ -64,7 +64,7 @@ const RegisterFormBuyer = () => {
 	}
 
 	return (
-		<form className="w-full h-full py-2 flex flex-col justify-center items-center gap-2 rounded-s-2xl transition-opacity">
+		<form className="w-full h-full py-2 flex flex-col justify-end items-center gap-2 transition-opacity">
 			<h1 className="text-2xl font-bold">Daftar Pembeli</h1>
 			<CustomInput
 				id="fullName-form"
@@ -73,11 +73,11 @@ const RegisterFormBuyer = () => {
 				onChange={handleFullName}
 			/>
 
-			<label htmlFor="city" className="w-full flex flex-col gap-1">
+			<label htmlFor="city" className="w-full">
 				Alamat Lengkap
 			</label>
 			<textarea
-				className="textarea w-full py-2 px-6 rounded-md focus:border-green-primary border-solid input input-bordered h-24"
+				className="textarea w-full py-2 rounded-md focus:border-green-primary border-solid input input-bordered h-24"
 				onChange={handleAddress}
 				placeholder="Alamat lengkap"
 			></textarea>
