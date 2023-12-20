@@ -1,4 +1,36 @@
+import { useEffect, useState } from 'react';
+import api from '../api';
+import { getToken } from '../features/user/actions';
+
 export default function Profile() {
+  const [profile, setProfile] = useState({
+    address: '',
+    city: '',
+    fullname: '',
+    id: '',
+    phoneNumber: '',
+    role: '',
+    saldo: '',
+    shopName: '',
+  });
+  const fetch = async () => {
+    const token = getToken();
+    try {
+      const { data } = await api.get('/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProfile(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <div className="w-full min-h-screen gap-10 bg-slate-50 px-20 py-10">
       <div className="text-3xl font-bold text-zinc-900 mb-10">Profile</div>
@@ -24,16 +56,9 @@ export default function Profile() {
             <div className="card bg-base-100 shadow">
               <div className="card-body">
                 <div className="card-title text-base">Nama Lengkap:</div>
-                <span>Kevin Fami Anggara</span>
+                <span>{profile.fullname}</span>
                 <div className="absolute top-5 right-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    data-slot="icon"
-                    className="w-8 h-8 stroke-green-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -46,21 +71,10 @@ export default function Profile() {
             <div className="card bg-base-100 shadow">
               <div className="card-body">
                 <div className="card-title text-base">Email:</div>
-                <span>kevinfanggara@gmail.com</span>
+                <span>-</span>
                 <div className="absolute top-5 right-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    data-slot="icon"
-                    className="w-8 h-8 stroke-green-primary">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
                   </svg>
                 </div>
               </div>
@@ -68,16 +82,9 @@ export default function Profile() {
             <div className="card bg-base-100 shadow">
               <div className="card-body">
                 <div className="card-title text-base">Nomor Handphone:</div>
-                <span>081807756659</span>
+                <span>{profile.phoneNumber}</span>
                 <div className="absolute top-5 right-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    data-slot="icon"
-                    className="w-8 h-8 stroke-green-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -90,16 +97,9 @@ export default function Profile() {
             <div className="card bg-base-100 shadow">
               <div className="card-body">
                 <div className="card-title text-base">Alamat:</div>
-                <span>Jalan Selat Batam Blok D4 No. 2, Duren Sawit</span>
+                <span>{profile.address}</span>
                 <div className="absolute top-5 right-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    data-slot="icon"
-                    className="w-8 h-8 stroke-green-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -112,26 +112,11 @@ export default function Profile() {
             <div className="card bg-base-100 shadow">
               <div className="card-body">
                 <div className="card-title text-base">Kota/Kabupaten:</div>
-                <span>Jakarta Timur</span>
+                <span>{profile.city}</span>
                 <div className="absolute top-5 right-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    data-slot="icon"
-                    className="w-8 h-8 stroke-green-primary">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" data-slot="icon" className="w-8 h-8 stroke-green-primary">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                   </svg>
                 </div>
               </div>
