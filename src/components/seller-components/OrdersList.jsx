@@ -1,6 +1,32 @@
-import { Link } from "react-router-dom";
+// import axios from 'axios';
+// import { useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import api from '../../api';
+import { useEffect, useState } from 'react';
 
 export default function OrdersList() {
+  const [transactions, setTransactions] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const { id } = useParams();
+  const token = searchParams.get('token');
+
+  const fetch = async () => {
+    try {
+      const { data } = await api.get('/invoices-seller', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <section id="orders-list" className="p-8 mb-10">
       <h1 className="text-xl font-bold mb-2">Daftar Pesanan</h1>
@@ -29,14 +55,10 @@ export default function OrdersList() {
               <td>Selesai</td>
               <td>
                 <Link to="/seller/transaction/:id">
-                  {" "}
-                  <button className="btn btn btn-xs bg-green-primary mb-2 mr-2 truncate md:text-clip">
-                    Lihat Detail
-                  </button>
+                  {' '}
+                  <button className="btn btn-xs bg-green-primary mb-2 mr-2 truncate md:text-clip">Lihat Detail</button>
                 </Link>
-                <button className="btn btn btn-xs bg-yellow-primary truncate md:text-clip">
-                  Kirim Pesanan
-                </button>
+                <button className="btn btn-xs bg-yellow-primary truncate md:text-clip">Kirim Pesanan</button>
               </td>
             </tr>
             {/* row 2 */}
@@ -49,13 +71,9 @@ export default function OrdersList() {
               <td>Diproses</td>
               <td>
                 <Link to="/seller/transaction/:id">
-                  <button className="btn btn-xs bg-green-primary mb-2 mr-2">
-                    Lihat Detail
-                  </button>
+                  <button className="btn btn-xs bg-green-primary mb-2 mr-2">Lihat Detail</button>
                 </Link>
-                <button className="btn btn-xs bg-yellow-primary">
-                  Kirim Pesanan
-                </button>
+                <button className="btn btn-xs bg-yellow-primary">Kirim Pesanan</button>
               </td>
             </tr>
           </tbody>
