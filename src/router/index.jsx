@@ -14,6 +14,7 @@ import Shipment from '../pages/Shipment';
 import Register from '../pages/Register';
 import Login from '../pages/Login';
 import { getRole, getToken } from '../features/user/actions';
+import SideBarBuyer from '../components/SideBarBuyer';
 
 const router = createBrowserRouter([
 	{
@@ -27,11 +28,21 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '',
-				element: <Home />,
-			},
-			{
-				path: '/products/:productId',
-				element: <ListSellerProducts />,
+				element: <SideBarBuyer />,
+				children: [
+					{
+						path: '',
+						loader: () => redirect('/products'),
+					},
+					{
+						path: '/products',
+						element: <Home />,
+					},
+					{
+						path: '/products/:productId',
+						element: <ListSellerProducts />,
+					},
+				],
 			},
 			{
 				path: 'shop/:sellerId',

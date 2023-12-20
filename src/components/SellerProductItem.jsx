@@ -20,7 +20,7 @@ const SellerProductItem = ({ data }) => {
 			<div className="w-full h-full flex justify-between p-2 rounded-lg backdrop-blur-xl border-[1px] border-violet-primary hover:scale-105 hover:bg-violet-100 hover:shadow-lg hover:shadow-violet-primary transition-all shadow-xl">
 				<div className="w-1/2 flex gap-4">
 					<img
-						src="/potato.jpg"
+						src={data?.product?.imageUrl}
 						alt=""
 						className="h-full aspect-square rounded-lg"
 					/>
