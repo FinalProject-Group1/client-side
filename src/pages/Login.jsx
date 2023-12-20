@@ -2,8 +2,8 @@ import { useState } from 'react';
 import api from '../api';
 import CustomInput from '../components/CustomInput';
 import SubmitButton from '../components/SubmitButton';
-import { setToken } from '../features/user/actions';
 import { useNavigate } from 'react-router-dom';
+import { getProfileApi } from '../features/user/actions';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -19,7 +19,17 @@ const Login = () => {
 				password,
 			});
 			console.log(data, 'login from server');
-			setToken(data.access_token);
+			localStorage.setItem('access_token', data.access_token);
+
+			const profileData = await getProfileApi();
+			localStorage.setItem('role', profileData.role);
+
+			if (profileData.role === 'seller') {
+				console.log('trigerr profile login');
+				navigate('/seller');
+				return;
+			}
+
 			navigate('/');
 		} catch (error) {
 			console.log(error.response.data.message);

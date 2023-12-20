@@ -3,6 +3,7 @@ import ShipmentProduct from '../components/ShipmentProduct';
 import { useParams } from 'react-router-dom';
 import api from '../api';
 import ShipmentSummary from '../components/ShipmentSumarry';
+import { getToken } from '../features/user/actions';
 
 const Shipment = () => {
 	const { invoiceId } = useParams();
@@ -11,11 +12,15 @@ const Shipment = () => {
 	useEffect(() => {
 		const fetchInvoice = async () => {
 			try {
-				const { data } = await api.get(`/invoice/${invoiceId}`);
+				const { data } = await api.get(`/invoice/${invoiceId}`, {
+					headers: {
+						Authorization: `Bearer ${getToken()}`,
+					},
+				});
 				// console.log(data, 'invoice from server');
 				setInvoice(data);
 			} catch (error) {
-				console.log(error);
+				console.log(error.response.data.message);
 			}
 		};
 		fetchInvoice();
@@ -51,7 +56,7 @@ const Shipment = () => {
 			});
 			console.log('>>> midtrans');
 		} catch (error) {
-			console.log(error);
+			console.log(error.response.data.message);
 		}
 	};
 

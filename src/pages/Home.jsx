@@ -22,6 +22,8 @@ const Home = () => {
 		fetchProducts();
 	}, [category]);
 
+	// console.log(profileData, 'profile data');
+
 	return (
 		<div className="w-full min-h-screen flex flex-row bg-slate-50">
 			<div className="w-1/4 h-full">
