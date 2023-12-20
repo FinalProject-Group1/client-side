@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
@@ -14,15 +13,12 @@ import ShopSeller from '../pages/ShopSeller';
 import Shipment from '../pages/Shipment';
 import Register from '../pages/Register';
 import Login from '../pages/Login';
+import { getToken } from '../features/user/actions';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		children: [
-			{
-				path: '',
-				element: <Home />,
-			},
 			{
 				path: 'register',
 				element: <Register />,
@@ -30,6 +26,10 @@ const router = createBrowserRouter([
 			{
 				path: 'login',
 				element: <Login />,
+			},
+			{
+				path: '',
+				element: <Home />,
 			},
 			{
 				path: '/products/:productId',
@@ -41,16 +41,19 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'checkout/:invoiceId',
+				loader: () => (getToken() ? null : redirect('/login')),
 				element: <Shipment />,
 			},
 			{
 				path: 'transaction',
+				loader: () => (getToken() ? null : redirect('/login')),
 				element: <OrdersList />,
 			},
 		],
 	},
 	{
 		path: '/seller',
+		loader: () => (getToken() ? null : redirect('/login')),
 		element: <Dashboard />,
 		children: [
 			{

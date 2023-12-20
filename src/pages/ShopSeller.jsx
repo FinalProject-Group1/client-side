@@ -4,6 +4,7 @@ import ShoppingSumarry from '../components/ShoppingSummary';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
 import { useSelector } from 'react-redux';
+import { getToken } from '../features/user/actions';
 
 const ShopSeller = () => {
 	const navigate = useNavigate();
@@ -17,7 +18,7 @@ const ShopSeller = () => {
 				const { data } = await api.get(`/user/${sellerId}`);
 				setSeller(data);
 			} catch (error) {
-				console.log(error);
+				console.log(error.response.data.message);
 			}
 		};
 		fetchSellerDetail();
@@ -34,20 +35,35 @@ const ShopSeller = () => {
 			// 	};
 			// });
 			// console.log(test, 'testtttt');
+			if (!selectedProducts.length) {
+				return;
+			}
 
-			const { data } = await api.post(`/order`, {
-				SellerId: sellerId,
-				products: selectedProducts.map((product) => {
-					return {
-						SellerProductId: product.id,
-						quantity: product.quantity,
-					};
-				}),
-			});
+			if (!getToken()) {
+				navigate('/login');
+			}
+
+			const { data } = await api.post(
+				`/order`,
+				{
+					SellerId: sellerId,
+					products: selectedProducts.map((product) => {
+						return {
+							SellerProductId: product.id,
+							quantity: product.quantity,
+						};
+					}),
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${getToken()}`,
+					},
+				}
+			);
 			// console.log(data, 'create invoice');
 			navigate(`/checkout/${data.invoiceId}`);
 		} catch (error) {
-			console.log(error);
+			console.log(error.response.data.message);
 		}
 	};
 
