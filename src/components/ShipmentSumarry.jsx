@@ -1,24 +1,28 @@
 import PropTypes from 'prop-types';
 import { toRupiah } from '../helpers/currency';
-import { useSelector } from 'react-redux';
 
-const ShoppingSumarry = ({ textButton, onClick }) => {
-	const selectedProducts = useSelector(({ shop }) => shop.selectedProducts);
+const ShipmentSummary = ({ textButton, onClick, dataProducts }) => {
+	const getTotalPrice = () => {
+		const totalPrice = dataProducts?.reduce((total, data) => {
+			return total + data?.sellerproduct?.price * data.quantity;
+		}, 0);
+		return totalPrice;
+	};
 
 	return (
 		<div className="w-full flex justify-center">
 			<div className="w-full h-max shadow-lg rounded-lg border p-4">
 				<h1 className="text-zinc-900 font-bold mb-2">Ringkasan Belanja</h1>
-				{Boolean(selectedProducts.length) &&
-					selectedProducts.map((data) => {
+				{Boolean(dataProducts?.length) &&
+					dataProducts.map((data) => {
 						return (
 							<div key={data.id} className="flex justify-between">
 								<h1 className="text-gray-500 text-sm">
-									{data.product?.productName} {data.quantity}{' '}
-									{data.product?.unit}
+									{data?.sellerproduct?.product?.productName} {data.quantity}{' '}
+									{data?.sellerproduct?.product?.unit}
 								</h1>
 								<h1 className="text-gray-500 text-sm">
-									{toRupiah(data.price)}
+									{toRupiah(data?.sellerproduct?.price * data?.quantity)}
 								</h1>
 							</div>
 						);
@@ -26,13 +30,15 @@ const ShoppingSumarry = ({ textButton, onClick }) => {
 				{textButton === 'Bayar' && (
 					<div className="flex justify-between">
 						<h1 className="text-gray-500 text-sm">Biaya Pengiriman</h1>
-						<h1 className="text-gray-500 text-sm">Rp 2.000</h1>
+						<h1 className="text-gray-500 text-sm">Rp 9.000</h1>
 					</div>
 				)}
 				<div className="h-[1px] bg-gray-400 my-3"></div>
 				<div className="flex justify-between my-3">
 					<h1 className="text-zinc-900 font-bold">Total Harga</h1>
-					<h1 className="text-zinc-900 font-bold">Rp 24.000</h1>
+					<h1 className="text-zinc-900 font-bold">
+						{toRupiah(getTotalPrice() + 9000)}
+					</h1>
 				</div>
 				<button
 					onClick={onClick}
@@ -45,9 +51,10 @@ const ShoppingSumarry = ({ textButton, onClick }) => {
 	);
 };
 
-export default ShoppingSumarry;
+export default ShipmentSummary;
 
-ShoppingSumarry.propTypes = {
+ShipmentSummary.propTypes = {
 	textButton: PropTypes.string,
 	onClick: PropTypes.func,
+	dataProducts: PropTypes.array,
 };

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import SellerProductItem from '../components/SellerProductItem';
-import ShoppingSumarry from '../components/ShoppingSumarry';
-import { useParams } from 'react-router-dom';
+import ShoppingSumarry from '../components/ShoppingSummary';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
 import { useSelector } from 'react-redux';
 
 const ShopSeller = () => {
+	const navigate = useNavigate();
 	const { sellerId } = useParams();
 	const [seller, setSeller] = useState({});
 	const selectedProducts = useSelector((state) => state.shop.selectedProducts);
@@ -43,7 +44,8 @@ const ShopSeller = () => {
 					};
 				}),
 			});
-			console.log(data, 'create invoice');
+			// console.log(data, 'create invoice');
+			navigate(`/checkout/${data.invoiceId}`);
 		} catch (error) {
 			console.log(error);
 		}

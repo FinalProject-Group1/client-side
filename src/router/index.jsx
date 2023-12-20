@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
@@ -11,6 +10,9 @@ import SellerEditAccount from '../components/seller-components/SellerEditAccount
 import { redirect } from 'react-router-dom';
 import ListSellerProducts from '../pages/ListSellerProducts';
 import ShopSeller from '../pages/ShopSeller';
+import Shipment from '../pages/Shipment';
+import Register from '../pages/Register';
+import Login from '../pages/Login';
 
 const router = createBrowserRouter([
 	{
@@ -21,12 +23,24 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
+				path: 'register',
+				element: <Register />,
+			},
+			{
+				path: 'login',
+				element: <Login />,
+			},
+			{
 				path: '/products/:productId',
 				element: <ListSellerProducts />,
 			},
 			{
 				path: 'shop/:sellerId',
 				element: <ShopSeller />,
+			},
+			{
+				path: 'checkout/:invoiceId',
+				element: <Shipment />,
 			},
 			{
 				path: 'transaction',

@@ -13,6 +13,7 @@ const SellerProductItem = ({ data }) => {
 	const dispatch = useDispatch();
 
 	// console.log(quantity, 'quantity');
+	// console.log(data.stock, 'stock');
 
 	return (
 		<div className="w-full h-full flex">
@@ -67,7 +68,7 @@ const SellerProductItem = ({ data }) => {
 								return prev + 1;
 							});
 						}}
-						className={`px-1 py-[2px] font-bold bg-violet-600 text-slate-50 rounded-lg cursor-pointer leading-none ${
+						className={`px-1 py-[2px] font-bold text-slate-50 rounded-lg cursor-pointer leading-none ${
 							quantity === data.stock
 								? 'disabled bg-violet-300'
 								: 'bg-violet-600'
