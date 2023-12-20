@@ -1,73 +1,88 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
-import Dashboard from "../pages/Dashboard";
-import OrdersList from "../components/seller-components/OrdersList";
-import OrderDetails from "../components/seller-components/OrderDetails";
-import AddProduct from "../components/seller-components/AddProduct";
-import ProductsList from "../components/seller-components/ProductsList";
-import EditProduct from "../components/seller-components/EditProduct";
-import SellerEditAccount from "../components/seller-components/SellerEditAccount";
-import { redirect } from "react-router-dom";
-import ListSellerProducts from "../pages/ListSellerProducts";
-import Shipment from "../pages/Shipment";
-import Profile from "../pages/Profile";
-import ShopSeller from "../pages/ShopSeller";
+
+import { createBrowserRouter } from 'react-router-dom';
+import Home from '../pages/Home';
+import Dashboard from '../pages/Dashboard';
+import OrdersList from '../components/seller-components/OrdersList';
+import OrderDetails from '../components/seller-components/OrderDetails';
+import AddProduct from '../components/seller-components/AddProduct';
+import ProductsList from '../components/seller-components/ProductsList';
+import EditProduct from '../components/seller-components/EditProduct';
+import SellerEditAccount from '../components/seller-components/SellerEditAccount';
+import { redirect } from 'react-router-dom';
+import ListSellerProducts from '../pages/ListSellerProducts';
+import ShopSeller from '../pages/ShopSeller';
+import Shipment from '../pages/Shipment';
+import Register from '../pages/Register';
+import Login from '../pages/Login';
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/product",
-    element: <ListSellerProducts />,
-  },
-  {
-    path: "/shipment",
-    element: <Shipment />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/shop",
-    element: <ShopSeller />,
-  },
-  {
-    path: "/seller",
-    element: <Dashboard />,
-    children: [
-      {
-        path: "",
-        loader: () => redirect("/seller/transaction"),
-      },
-      {
-        path: "transaction",
-        element: <OrdersList />,
-      },
-      {
-        path: "transaction/:id",
-        element: <OrderDetails />,
-      },
-      {
-        path: "add-product",
-        element: <AddProduct />,
-      },
-      {
-        path: "products",
-        element: <ProductsList />,
-      },
-      {
-        path: "products/:id",
-        element: <EditProduct />,
-      },
-      {
-        path: "account",
-        element: <SellerEditAccount />,
-      },
-    ],
-  },
+	{
+		path: '/',
+		children: [
+			{
+				path: '',
+				element: <Home />,
+			},
+			{
+				path: 'register',
+				element: <Register />,
+			},
+			{
+				path: 'login',
+				element: <Login />,
+			},
+			{
+				path: '/products/:productId',
+				element: <ListSellerProducts />,
+			},
+			{
+				path: 'shop/:sellerId',
+				element: <ShopSeller />,
+			},
+			{
+				path: 'checkout/:invoiceId',
+				element: <Shipment />,
+			},
+			{
+				path: 'transaction',
+				element: <OrdersList />,
+			},
+		],
+	},
+	{
+		path: '/seller',
+		element: <Dashboard />,
+		children: [
+			{
+				path: '',
+				loader: () => redirect('/seller/transaction'),
+			},
+			{
+				path: 'transaction',
+				element: <OrdersList />,
+			},
+			{
+				path: 'transaction/:id',
+				element: <OrderDetails />,
+			},
+			{
+				path: 'add-product',
+				element: <AddProduct />,
+			},
+			{
+				path: 'products',
+				element: <ProductsList />,
+			},
+			{
+				path: 'products/:id',
+				element: <EditProduct />,
+			},
+			{
+				path: 'account',
+				element: <SellerEditAccount />,
+			},
+		],
+	},
 ]);
 
 export default router;

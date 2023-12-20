@@ -9,7 +9,7 @@ const ProductCard = ({ data }) => {
 				className="rounded-full aspect-square hover:scale-110 hover:border-4 hover:border-green-primary transition-all"
 			/>
 			<p className="text-md font-medium text-zinc-900">
-				{data.category}
+				{/* {data.category} */}
 				{data.productName}
 			</p>
 		</div>

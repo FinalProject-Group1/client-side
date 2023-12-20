@@ -1,6 +1,29 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import api from '../../api';
 
 export default function ProductList() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get('token');
+  const [products, setProducts] = useState([]);
+
+  const fetch = async () => {
+    try {
+      const { data } = await api.get('/user/seller-products', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProducts(data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <section id="products-list" className="p-8 mb-10">
       <h1 className="text-xl font-bold mb-2">Daftar Produk</h1>
@@ -19,61 +42,34 @@ export default function ProductList() {
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-              <td>
-                <div className="avatar">
-                  <div className="mask rounded w-40 h-40">
-                    <img
-                      src="https://images.unsplash.com/photo-1565685225009-fc85d9109c80"
-                      alt="Bawang Merah Image"
-                    />
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div>
-                    <div className="font-bold">Bawang Merah</div>
-                  </div>
-                </div>
-              </td>
-              <td>Sayuran</td>
-              <td>Rp50,000.00</td>
-              <td>34</td>
-              <td>
-                <Link to="/seller/products/:id">
-                  <button className="btn bg-yellow-primary btn-xs">Ubah</button>
-                </Link>
-              </td>
-            </tr>
-            {/* row 2 */}
-            <tr>
-              <td>
-                <div className="avatar">
-                  <div className="mask rounded w-40 h-40">
-                    <img
-                      src="https://images.unsplash.com/photo-1546860255-95536c19724e"
-                      alt="Cabe Rawit Merah"
-                    />
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div>
-                    <div className="font-bold">Cabe Rawit Merah</div>
-                  </div>
-                </div>
-              </td>
-              <td>Sayuran</td>
-              <td>Rp22,000.00</td>
-              <td>12</td>
-              <td>
-                <Link to="/seller/products/:id">
-                  <button className="btn bg-yellow-primary btn-xs">Ubah</button>
-                </Link>
-              </td>
-            </tr>
+            {products.map((el, index) => {
+              return (
+                <tr key={index}>
+                  <td>
+                    <div className="avatar">
+                      <div className="mask rounded w-40 h-40">
+                        <img src="https://images.unsplash.com/photo-1565685225009-fc85d9109c80" alt="Bawang Merah Image" />
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <div className="font-bold">{el.product.productName}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{el.product.category}</td>
+                  <td>{el.price}</td>
+                  <td>{el.stock}</td>
+                  <td>
+                    <Link to={`/seller/products/${el.id}?token=${token}`}>
+                      <button className="btn bg-yellow-primary btn-xs">Ubah</button>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
