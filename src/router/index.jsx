@@ -15,6 +15,7 @@ import Register from '../pages/Register';
 import Login from '../pages/Login';
 import { getRole, getToken } from '../features/user/actions';
 import SideBarBuyer from '../components/SideBarBuyer';
+import Transaction from '../pages/Transaction';
 
 const router = createBrowserRouter([
 	{
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
 				loader: () => {
 					return getToken() ? null : redirect('/login');
 				},
-				element: <OrdersList />,
+				element: <Transaction />,
 			},
 		],
 	},
