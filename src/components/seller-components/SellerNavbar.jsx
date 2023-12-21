@@ -1,14 +1,20 @@
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { getRole, getToken } from '../../features/user/actions';
 
 export default function SellerNavbar() {
+	// eslint-disable-next-line no-unused-vars
+	const [searchParams, setSearchParams] = useSearchParams();
+	const token = searchParams.get('token');
 	const navigate = useNavigate();
 
-	const handleOnLogout = () => {
-		localStorage.removeItem('access_token');
-		localStorage.removeItem('role');
+	function handleLogout() {
+		const tokenLocalStorage = getToken();
+		if (tokenLocalStorage) {
+			localStorage.removeItem('access_token');
+		}
+		if (getRole()) localStorage.removeItem('role');
 		navigate('/login');
-	};
+	}
 
 	return (
 		<section id="navbar">
@@ -46,10 +52,12 @@ export default function SellerNavbar() {
 							className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
 						>
 							<li>
-								<Link to="/seller/account">Akun Pengguna</Link>
+								<Link to={`/seller/account?token=${token}`}>Akun Pengguna</Link>
 							</li>
-							<li onClick={handleOnLogout}>
-								<a className="text-red-primary">Logout</a>
+							<li>
+								<a onClick={handleLogout} className="text-red-primary">
+									Logout
+								</a>
 							</li>
 						</ul>
 					</div>
