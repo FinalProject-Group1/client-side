@@ -42,7 +42,7 @@ const ShipmentSummary = ({ textButton, onClick, dataProducts }) => {
 				</div>
 				<button
 					onClick={onClick}
-					className="w-full py-2 px-8 mt-2 bg-violet-500 rounded-lg text-slate-50 font-bold hover:bg-violet-600"
+					className="w-full py-2 px-8 mt-2 bg-green-500 rounded-lg text-slate-50 font-bold hover:bg-green-600"
 				>
 					{textButton}
 				</button>

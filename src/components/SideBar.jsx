@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 const SideBar = ({ setCategory }) => {
 	return (
-		<div className="drawer lg:drawer-open bg-teal-500">
+		<div className="drawer lg:drawer-open bg-green-500">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 			<div className="drawer-content flex flex-col items-center justify-center">
 				{/* Page content here */}

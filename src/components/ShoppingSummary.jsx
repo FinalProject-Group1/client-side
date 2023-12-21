@@ -47,8 +47,8 @@ const ShoppingSumarry = ({ textButton, onClick }) => {
 					onClick={onClick}
 					className={`w-full py-2 px-8 mt-2 rounded-lg text-slate-50 font-bold ${
 						selectedProducts.length
-							? 'bg-violet-500 hover:bg-violet-600'
-							: 'disabled bg-violet-primary'
+							? 'bg-green-500 hover:bg-green-600'
+							: 'disabled bg-green-primary'
 					}`}
 				>
 					{textButton}

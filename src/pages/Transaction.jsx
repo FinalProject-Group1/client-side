@@ -23,7 +23,7 @@ const Transaction = () => {
 	// console.log(transactions, 'buyer transaction');
 
 	return (
-		<div className="w-full min-h-screen">
+		<div className="w-full min-h-screen pt-24">
 			<div className="w-full h-full px-32 py-10">
 				<div className="flex gap-8 mb-10">
 					<button

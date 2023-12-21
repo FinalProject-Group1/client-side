@@ -17,7 +17,7 @@ const SellerProductItem = ({ data }) => {
 
 	return (
 		<div className="w-full h-full flex">
-			<div className="w-full h-full flex justify-between p-2 rounded-lg backdrop-blur-xl border-[1px] border-violet-primary hover:scale-105 hover:bg-violet-100 hover:shadow-lg hover:shadow-violet-primary transition-all shadow-xl">
+			<div className="w-full h-full flex justify-between p-2 rounded-lg backdrop-blur-xl border-[1px] border-green-primary  hover:shadow-sm hover:shadow-green-primary transition-all shadow-xl">
 				<div className="w-1/2 flex gap-4">
 					<img
 						src={data?.product?.imageUrl}
@@ -46,7 +46,7 @@ const SellerProductItem = ({ data }) => {
 							});
 						}}
 						className={`px-[5px] py-[1px] font-bold text-slate-50 text-lg rounded-lg cursor-pointer leading-none ${
-							quantity === 1 ? 'disabled bg-violet-300' : 'bg-violet-600'
+							quantity === 1 ? 'disabled bg-green-300' : 'bg-green-600'
 						}`}
 					>
 						-
@@ -57,7 +57,7 @@ const SellerProductItem = ({ data }) => {
 							name=""
 							id=""
 							value={quantity}
-							className="bg-transparent outline-none w-[20px] text-center text-violet-800 underline"
+							className="bg-transparent outline-none w-[20px] text-center text-green-800 underline"
 						/>
 					</div>
 					<button
@@ -69,9 +69,7 @@ const SellerProductItem = ({ data }) => {
 							});
 						}}
 						className={`px-1 py-[2px] font-bold text-slate-50 rounded-lg cursor-pointer leading-none ${
-							quantity === data.stock
-								? 'disabled bg-violet-300'
-								: 'bg-violet-600'
+							quantity === data.stock ? 'disabled bg-green-300' : 'bg-green-600'
 						}`}
 					>
 						+

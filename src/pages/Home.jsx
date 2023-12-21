@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import SideBar from '../components/SideBar';
 // import ListSellerProducts from './ListSellerProducts';
 import api from '../api';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Home = () => {
 	const [searchParams, setSearchParams] = useSearchParams('category');
@@ -26,6 +25,7 @@ const Home = () => {
 	}, [searchParams]);
 
 	// console.log(profileData, 'profile data');
+	// console.log(products, 'products');
 	console.log(searchParams.get('category'), 'params');
 
 	return (

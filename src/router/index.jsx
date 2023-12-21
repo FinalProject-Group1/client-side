@@ -16,6 +16,8 @@ import Login from '../pages/Login';
 import { getRole, getToken } from '../features/user/actions';
 import SideBarBuyer from '../components/SideBarBuyer';
 import Transaction from '../pages/Transaction';
+import BuyerLayout from '../layouts/BuyerLayout';
+import Profile from '../pages/Profile';
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +28,7 @@ const router = createBrowserRouter([
 			}
 			return null;
 		},
+		element: <BuyerLayout />,
 		children: [
 			{
 				path: '',
@@ -62,6 +65,13 @@ const router = createBrowserRouter([
 					return getToken() ? null : redirect('/login');
 				},
 				element: <Transaction />,
+			},
+			{
+				path: 'profile',
+				loader: () => {
+					return getToken() ? null : redirect('/login');
+				},
+				element: <Profile />,
 			},
 		],
 	},
