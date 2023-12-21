@@ -3,7 +3,7 @@ import { toRupiah } from '../helpers/currency';
 
 const SellerProductCard = ({ data }) => {
 	return (
-		<div className="w-full h-full flex justify-between p-2 rounded-lg backdrop-blur-xl border-[1px] border-violet-primary hover:scale-105 hover:bg-violet-100 hover:shadow-lg hover:shadow-violet-primary transition-all shadow-xl">
+		<div className="w-full h-full flex justify-between p-2 rounded-lg backdrop-blur-xl border-[1px] border-green-primary hover:shadow-sm hover:shadow-green-primary transition-all shadow-xl">
 			<div className="w-1/2 flex gap-4">
 				<img
 					src={data?.product?.imageUrl}
@@ -24,7 +24,7 @@ const SellerProductCard = ({ data }) => {
 				</div>
 			</div>
 			<div className="w-1/4 h-full flex items-center justify-end px-4">
-				<button className="py-2 px-8 bg-violet-primary rounded-lg text-slate-50 hover:bg-violet-500 hover:border hover:border-violet-primary">
+				<button className="py-2 px-8 bg-green-primary rounded-lg text-slate-50 hover:bg-green-600 hover:border hover:border-green-primary">
 					Beli
 				</button>
 			</div>

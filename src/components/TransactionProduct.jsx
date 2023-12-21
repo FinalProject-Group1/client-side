@@ -10,7 +10,7 @@ const TransactionProduct = ({ data }) => {
 			<div className="w-full h-2/3 flex">
 				<div className="w-full h-14 flex gap-4">
 					<img
-						src="/potato.jpg"
+						src={data?.sellerproduct?.product?.imageUrl}
 						alt=""
 						className="h-full aspect-square rounded-lg"
 					/>

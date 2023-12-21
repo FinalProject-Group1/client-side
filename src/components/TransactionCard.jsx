@@ -3,8 +3,12 @@ import { getToken } from '../features/user/actions';
 import { toRupiah } from '../helpers/currency';
 import TransactionProduct from './TransactionProduct';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
+// import { useNavigate } from 'react-router-dom';
 
 const TransactionCard = ({ data, fetchTransactions }) => {
+	// const navigate = useNavigate();
+
 	const getTotalPrice = () => {
 		const totalPrice = data?.OrderItems?.reduce((total, orderItem) => {
 			return total + orderItem?.sellerproduct?.price * orderItem?.quantity;
@@ -48,6 +52,59 @@ const TransactionCard = ({ data, fetchTransactions }) => {
 		}
 	};
 
+	const handleOnClickPay = async () => {
+		try {
+			const response = await api.post(
+				'/payment',
+				{
+					InvoiceId: data?.id,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${getToken()}`,
+					},
+				}
+			);
+			console.log(response.data, 'payment from server');
+			window.snap.pay(data.transactionToken, {
+				onSuccess: async function (result) {
+					/* You may add your own implementation here */
+					console.log('payment success!');
+					console.log(result);
+					try {
+						await api.post('/payment-success', result);
+						// navigate('/transaction');
+						fetchTransactions();
+					} catch (error) {
+						console.log(error);
+					}
+				},
+				onPending: function (result) {
+					/* You may add your own implementation here */
+					console.log('wating your payment!');
+					console.log(result);
+				},
+				onError: function (result) {
+					/* You may add your own implementation here */
+					console.log('payment failed!');
+					console.log(result);
+				},
+				onClose: function () {
+					/* You may add your own implementation here */
+					console.log('you closed the popup without finishing the payment');
+				},
+			});
+			console.log('>>> midtrans');
+		} catch (error) {
+			console.log(error);
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: `${error}`,
+			});
+		}
+	};
+
 	// console.log(data);
 
 	return (
@@ -61,7 +118,10 @@ const TransactionCard = ({ data, fetchTransactions }) => {
 				>
 					<path d="M2.97 1.35A1 1 0 013.73 1h8.54a1 1 0 01.76.35l2.609 3.044A1.5 1.5 0 0116 5.37v.255a2.375 2.375 0 01-4.25 1.458A2.371 2.371 0 019.875 8 2.37 2.37 0 018 7.083 2.37 2.37 0 016.125 8a2.37 2.37 0 01-1.875-.917A2.375 2.375 0 010 5.625V5.37a1.5 1.5 0 01.361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 002.75 0 .5.5 0 011 0 1.375 1.375 0 002.75 0 .5.5 0 011 0 1.375 1.375 0 102.75 0V5.37a.5.5 0 00-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 001 5.37v.255a1.375 1.375 0 002.75 0 .5.5 0 011 0zM1.5 8.5A.5.5 0 012 9v6h1v-5a1 1 0 011-1h3a1 1 0 011 1v5h6V9a.5.5 0 011 0v6h.5a.5.5 0 010 1H.5a.5.5 0 010-1H1V9a.5.5 0 01.5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 011-1h2a1 1 0 011 1v3a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3zm3 0h-2v3h2v-3z" />
 				</svg>
-				<p className="font-bold">{data?.seller?.shopName}</p>
+				<p className="font-bold">
+					{data?.seller?.shopName}
+					<span className="text-sm font-normal"> - {data?.OrderId}</span>
+				</p>
 			</div>
 			<div className="w-full h-full flex flex-col justify-between gap-3">
 				{data &&
@@ -89,6 +149,13 @@ const TransactionCard = ({ data, fetchTransactions }) => {
 							className="btn px-6 bg-green-primary hover:bg-green-700 text-slate-50 rounded-md"
 						>
 							Diterima
+						</button>
+					) : data?.paymentStatus === 'unpaid' ? (
+						<button
+							onClick={handleOnClickPay}
+							className="btn px-6 bg-green-primary hover:bg-green-700 text-slate-50 rounded-md"
+						>
+							Bayar
 						</button>
 					) : (
 						<p

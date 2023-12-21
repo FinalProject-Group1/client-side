@@ -8,7 +8,9 @@ const SideBarBuyer = () => {
 				<div className="drawer-content flex flex-col">
 					{/* Page content here */}
 
-					<Outlet />
+					<div className="pt-20">
+						<Outlet />
+					</div>
 				</div>
 				<div className="flex-none pl-2 lg:hidden">
 					<label
@@ -38,7 +40,7 @@ const SideBarBuyer = () => {
 						aria-label="close sidebar"
 						className="drawer-overlay"
 					></label>
-					<ul className="menu p-4 w-80 min-h-full bg-green-primary text-slate-50 text-md font-medium">
+					<ul className="menu p-4 w-80 min-h-full pt-28 bg-gray-100  text-md font-medium">
 						{/* Sidebar content here */}
 						<li className="mb-2 hover:font-bold">
 							<Link to="/products">Semua</Link>

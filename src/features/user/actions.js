@@ -12,6 +12,11 @@ export const getRole = () => {
 	return localStorage.getItem('role');
 };
 
+export const isBuyer = () => {
+	const is = getToken() && getRole() === 'buyer';
+	console.log(is);
+	return is;
+};
 export const getProfileApi = async () => {
 	console.log('trigerr profile api');
 	const { data } = await api.get('/profile', {
